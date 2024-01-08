@@ -24,6 +24,11 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+
+        if ($user->is_active == 0) {
+            return response()->json(['error' => 'User is not active.'], 422);
+        }
+
         $token = JWTService::createJwtToken($user);
         return response()->json(['token' => $token], 200);
     }
