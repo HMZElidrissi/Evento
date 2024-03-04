@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Evento</title>
+    <title>Dashboard</title>
     @viteReactRefresh
-    @vite(['resources/js/FrontOffice/App.jsx'])
+    @vite(['resources/js/BackOffice/DashboardApp.jsx'])
 </head>
 <body>
-    <div id="front-office"></div>
+    <div id="back-office"></div>
 </body>
 </html>
