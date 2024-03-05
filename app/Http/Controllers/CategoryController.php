@@ -31,9 +31,10 @@ class CategoryController extends Controller
         return response()->json($category, 200);
     }
 
-    public function destroy(Category $id)
+    public function destroy($id)
     {
-        $id->delete();
+        $category = Category::findOrFail($id);
+        $category->delete();
         return response()->json(null, 204);
     }
 }
