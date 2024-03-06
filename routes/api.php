@@ -24,14 +24,14 @@ Route::middleware('jwt')->group(function () {
 // Events
 Route::get('/events', [EventController::class, 'index']);
 Route::post('/events', [EventController::class, 'store']);
-Route::put('/events/{event_id}', [EventController::class, 'update']);
-Route::delete('/events/{event_id}', [EventController::class, 'destroy']);
+Route::put('/events/{event}', [EventController::class, 'update']);
+Route::delete('/events/{event}', [EventController::class, 'destroy']);
 
 // Categories
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::post('/categories', [CategoryController::class, 'store']);
-Route::put('/categories/{category_id}', [CategoryController::class, 'update']);
-Route::delete('/categories/{category_id}', [CategoryController::class, 'destroy']);
+Route::put('/categories/{category}', [CategoryController::class, 'update']);
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
