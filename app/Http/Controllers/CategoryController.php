@@ -21,19 +21,17 @@ class CategoryController extends Controller
         return response()->json($category, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
         $attributes = $request->validate([
             'title' => ['required', 'string', 'max:255']
         ]);
-        $category = Category::findOrFail($id);
         $category->update($attributes);
         return response()->json($category, 200);
     }
 
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $category = Category::findOrFail($id);
         $category->delete();
         return response()->json(null, 204);
     }

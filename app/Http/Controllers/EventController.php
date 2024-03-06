@@ -21,17 +21,15 @@ class EventController extends Controller
         return response()->json($event, 201);
     }
 
-    public function update(UpdateEventRequest $request, $id)
+    public function update(UpdateEventRequest $request, Event $event)
     {
         $attributes = $request->validated();
-        $event = Event::findOrFail($id);
         $event->update($attributes);
         return response()->json($event, 200);
     }
 
-    public function destroy($id)
+    public function destroy(Event $event)
     {
-        $event = Event::findOrFail($id);
         $event->delete();
         return response()->json(null, 204);
     }
