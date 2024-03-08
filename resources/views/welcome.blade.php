@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Evento</title>
-    @viteReactRefresh
-    @vite(['resources/js/FrontOffice/App.jsx'])
 </head>
 <body>
-    <div id="front-office"></div>
+    <h1>Evento</h1>
+    <p>Evento is a simple event management system built with Laravel.</p>
 </body>
 </html>
