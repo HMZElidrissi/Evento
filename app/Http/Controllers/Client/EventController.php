@@ -34,6 +34,10 @@ class EventController extends Controller
             'event_id' => $event->id,
             'user_id' => JWTService::getUser()->id
         ]);
+        if ($event->organizer->auto_approve) {
+            $reservation->status = 'approved';
+            $reservation->save();
+        }
         return response()->json($reservation, 201);
     }
 }

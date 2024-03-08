@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\EventController as ClientEventController;
+use App\Http\Controllers\Client\ReservationController as ClientReservationController;
 use App\Http\Controllers\Organizer\EventController as OrganizerEventController;
+use App\Http\Controllers\Organizer\ReservationController as OrganizerReservationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +39,17 @@ Route::middleware('jwt')->group(function () {
 
     // Clients Events
     Route::post('/events/{event}/register', [ClientEventController::class, 'register']);
+
+    // Clients Reservations
+    Route::get('/my-reservations', [ClientReservationController::class, 'index']);
+    Route::get('/my-reservations/{reservation}/download', [ClientReservationController::class, 'download']);
+
+    // Organizer Reservations
+    Route::get('/reservations', [OrganizerReservationController::class, 'index']);
+    Route::put('/reservations/{reservation}/approve', [OrganizerReservationController::class, 'approve']);
+    Route::put('/reservations/{reservation}/reject', [OrganizerReservationController::class, 'reject']);
+    Route::put('/reservations/config', [OrganizerReservationController::class, 'updateReservationConfig']);
+    Route::get('/reservations/config', [OrganizerReservationController::class, 'getReservationConfig']);
 
     // Categories
     Route::get('/categories/{category}', [CategoryController::class, 'show']);
