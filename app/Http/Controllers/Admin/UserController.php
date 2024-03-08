@@ -27,4 +27,14 @@ class UserController extends Controller
         $user->save();
         return response()->json($user, 200);
     }
+
+    /**
+     * Restore access to the application.
+     */
+    public function restoreAccess(User $user)
+    {
+        $user->is_active = true;
+        $user->save();
+        return response()->json($user, 200);
+    }
 }

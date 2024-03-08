@@ -37,6 +37,7 @@ Route::middleware('jwt')->group(function () {
     // Users
     Route::get('/users', [UserController::class, 'index']);
     Route::put('/users/{user}/revoke-access', [UserController::class, 'revokeAccess']);
+    Route::put('/users/{user}/restore-access', [UserController::class, 'restoreAccess']);
 });
 
 
