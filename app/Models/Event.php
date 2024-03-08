@@ -15,7 +15,9 @@ class Event extends Model
         'date',
         'location',
         'number_attendees',
-        'category_id'
+        'category_id',
+        'organizer_id',
+        'status'
     ];
 
     public function category()
