@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\EventController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Organizer\EventController as OrganizerEventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,11 +21,17 @@ Route::middleware('jwt')->group(function () {
     // Profile
     Route::get('/me', [AuthController::class, 'me']);
     // Events
-    Route::get('/events', [EventController::class, 'index']);
+    /*Route::get('/events', [EventController::class, 'index']);
     Route::post('/events', [EventController::class, 'store']);
     Route::put('/events/{event}', [EventController::class, 'update']);
-    Route::delete('/events/{event}', [EventController::class, 'destroy']);
-    
+    Route::delete('/events/{event}', [EventController::class, 'destroy']);*/
+
+    Route::get('/my-events', [OrganizerEventController::class, 'index']);
+    Route::post('/my-events', [OrganizerEventController::class, 'store']);
+    Route::get('/my-events/{event}', [OrganizerEventController::class, 'show']);
+    Route::put('/my-events/{event}', [OrganizerEventController::class, 'update']);
+    Route::delete('/my-events/{event}', [OrganizerEventController::class, 'destroy']);
+
     // Categories
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::get('/categories/{category}', [CategoryController::class, 'show']);

@@ -23,6 +23,8 @@ class EventFactory extends Factory
             'location' => $this->faker->address,
             'category_id' => $this->faker->numberBetween(1, 10),
             'number_attendees' => $this->faker->numberBetween(1, 1000),
+            'organizer_id' => $this->faker->numberBetween(1, 10),
+            'status' => 'pending',
         ];
     }
 }
