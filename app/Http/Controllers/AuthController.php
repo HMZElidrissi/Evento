@@ -7,7 +7,8 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Firebase\JWT\JWT;
+use Illuminate\Support\Facades\Auth;
+use App\Services\JWTService;
 
 class AuthController extends Controller
 {
@@ -15,15 +16,13 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-        $user = User::where('email', $credentials['email'])->first();
-
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            return response()->json(['error' => 'Invalid credentials.'], 401);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['error' => 'Invalid credentials.'], 422);
         }
 
-        $token = $this->createJwtToken($user);
-
-        return response()->json(['user' => $user, 'token' => $token], 200);
+        $user = Auth::user();
+        $token = JWTService::createJwtToken($user);
+        return response()->json(['token' => $token], 200);
     }
 
     public function register(RegisterRequest $request)
@@ -32,23 +31,14 @@ class AuthController extends Controller
         $attributes['password'] = Hash::make($attributes['password']);
         $user = User::create($attributes);
 
-        $token = $this->createJwtToken($user);
+        $token = JWTService::createJwtToken($user);
 
-        return response()->json(['user' => $user, 'token' => $token], 201);
+        return response()->json(['token' => $token], 201);
     }
 
-    protected function createJwtToken(User $user)
+    public function me(Request $request)
     {
-        $key = env('JWT_SECRET');
-
-        $payload = [
-            'iss' => "Evento",
-            'sub' => $user->id,
-            'name' => $user->name,
-            'iat' => time(),
-            'exp' => time() + 60 * 60
-        ];
-
-        return JWT::encode($payload, $key, 'HS256');
+        $user = JWTService::getUser();
+        return response()->json(['user' => $user], 200);
     }
 }
