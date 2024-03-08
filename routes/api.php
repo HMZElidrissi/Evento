@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Client\EventController as ClientEventController;
 use App\Http\Controllers\Organizer\EventController as OrganizerEventController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,8 +35,10 @@ Route::middleware('jwt')->group(function () {
     Route::put('/events/{event}/approve', [EventController::class, 'approve']);
     Route::put('/events/{event}/reject', [EventController::class, 'reject']);
 
+    // Clients Events
+    Route::post('/events/{event}/register', [ClientEventController::class, 'register']);
+
     // Categories
-    Route::get('/categories', [CategoryController::class, 'index']);
     Route::get('/categories/{category}', [CategoryController::class, 'show']);
     Route::post('/categories', [CategoryController::class, 'store']);
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
@@ -50,3 +53,7 @@ Route::middleware('jwt')->group(function () {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+
+// Clients Events
+Route::get('/available-events', [ClientEventController::class, 'index']);
+Route::get('/categories', [CategoryController::class, 'index']);
