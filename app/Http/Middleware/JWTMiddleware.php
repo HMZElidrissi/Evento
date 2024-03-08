@@ -25,7 +25,7 @@ class JWTMiddleware
         try{
             JWTService::validateToken($token);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Unauthorized.'], 401);
+            return response()->json(['error' => $e->getMessage()], 401);
         }
 
         return $next($request);
