@@ -5,10 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
+use App\Services\JWTService;
 
-class JwtMiddleware
+class JWTMiddleware
 {
     /**
      * Handle an incoming request.
@@ -23,16 +22,8 @@ class JwtMiddleware
             return response()->json(['error' => 'Unauthorized.'], 401);
         }
 
-        try {
-            $key = env('JWT_SECRET');
-            $decoded = JWT::decode($token, new Key($key, 'HS256'));
-
-            $userId = $decoded->sub;
-            $requestUserId = $request->user()->id;
-
-            if ($userId !== $requestUserId) {
-                return response()->json(['error' => 'Unauthorized.'], 401);
-            }
+        try{
+            JWTService::validateToken($token);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unauthorized.'], 401);
         }
