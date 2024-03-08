@@ -66,6 +66,9 @@ Route::middleware('jwt')->group(function () {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail']);
+Route::post('/password/reset', [AuthController::class, 'reset']);
+
 
 // Clients Events
 Route::get('/available-events', [ClientEventController::class, 'index']);
