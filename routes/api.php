@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\EventController as ClientEventController;
 use App\Http\Controllers\Client\ReservationController as ClientReservationController;
+use App\Http\Controllers\Organizer\DashboardController as OrganizerDashboardController;
 use App\Http\Controllers\Organizer\EventController as OrganizerEventController;
 use App\Http\Controllers\Organizer\ReservationController as OrganizerReservationController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('jwt')->group(function () {
     // Profile
     Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/organizer-stats', [OrganizerDashboardController::class, 'index']);
+    Route::get('/admin-stats', [AdminDashboardController::class, 'index']);
 
     // Organizer Events
     Route::get('/my-events', [OrganizerEventController::class, 'index']);
